@@ -23,7 +23,7 @@ from "GA_DB"."INS_APP_GA4"."EVENT" e1
         from "GA_DB"."INS_APP_GA4"."EVENT"
         where date::DAte >= (getdate()::Date - 180)
     ) e2 on e1.PARAM_FEED_ID = e2.PARAM_FEED_ID
-where PARAM_EVENT_ACTION in ('my_feed')
+where PARAM_EVENT_CATEGORY in ('insp_social_channel')
     and date::DAte >= (getdate()::DAte - 1) -- and NAME not in ('video_played')
 order by PARAM_CJ_EMP_ID,
     PARAM_GA_SESSION_ID,
@@ -34,6 +34,9 @@ order by PARAM_CJ_EMP_ID,
     e1.PARAM_FEED_TITLE,
     e2.PARAM_FEED_TITLE,
     NAME;
+
+
+    select distinct PARAM_EVENT_CATEGORY  from "GA_DB"."INS_APP_GA4"."EVENT"
 
 
 
