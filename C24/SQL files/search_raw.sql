@@ -1,0 +1,1 @@
+select * from "GA_DB"."MONGO_ATLAS_INSENGINEAPI_PROD"."INS_SEARCH_LOG" limit 10 
