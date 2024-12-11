@@ -1,4 +1,5 @@
 select ab.appointment_id,
+    oo.created_at::Date as insp_date,
     issue_type.category,
     issue_type.issue_type,
     dr.fk_dealer_id,
@@ -128,14 +129,16 @@ select ab.appointment_id,
         and im_status in ('Closed') then 1
         else 0
     end as im_approved_flag
-from PC_STITCH_DB.ADMIN_PANEL_PROD_DEALERENGINE_PROD.DEALER_REQUESTS as dr
+    from PC_STITCH_DB.ADMIN_PANEL_PROD_DEALERENGINE_PROD.DEALER_REQUESTS as dr
     left join PC_STITCH_DB.ADMIN_PANEL_PROD_DEALERENGINE_PROD.DEALER_REQUEST_ISSUE_TYPE issue_type on dr.dealer_request_id = issue_type.fk_dealer_request_id
     left join PC_STITCH_DB.FIVETRAN1_BI.CDD as cd on cd.dealer_id = dr.fk_dealer_id -- inner join (
     --     select order_id,
     --         lead_id
     --     from PC_STITCH_DB.ADMIN_PANEL_PROD_DEALERENGINE_PROD.ORDERS
     -- ) as o on to_char(o.order_id) = to_char(dr.fk_order_id)
-    inner join PC_STITCH_DB.FIVETRAN_DEALERENGINE_PROD.APP_BID as ab on dr.bid_id = ab.id_app_bid -- left join (
+    inner join PC_STITCH_DB.FIVETRAN_DEALERENGINE_PROD.APP_BID as ab on dr.bid_id = ab.id_app_bid
+    left join PC_STITCH_DB.ADMIN_PANEL_PROD_DEALERENGINE_PROD.ORDERS oo on ab.appointment_id=oo.lead_id    
+        -- left join (
     --     select bid_id,
     --         is_home_delivery,
     --         sale_confirmed_dealer_address_city,
