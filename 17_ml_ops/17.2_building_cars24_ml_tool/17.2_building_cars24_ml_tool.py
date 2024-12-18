@@ -27,5 +27,5 @@ st.dataframe(ticker_df)
 # getting a chart 
 st.line_chart(ticker_df['Close'])
 
-# CAR PRED MODEL
+
 
