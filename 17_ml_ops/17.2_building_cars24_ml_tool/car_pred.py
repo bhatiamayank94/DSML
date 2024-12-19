@@ -1,5 +1,6 @@
 import streamlit as st
 import pandas as pd
+import pickle
 pd_c=pd.read_csv(r'C:\Users\28962\Documents\GitHub\DSML\17_ml_ops\17.2_building_cars24_ml_tool\cars24-car-price.csv')
 
 st.header('Cars 24 price predictor')
@@ -14,7 +15,7 @@ with col2:
     tt=st.radio('select transmission',["Manual","Automatic"])
     
 with col3:
-    tt=st.radio('select number of seats',["1","2","3","4"])
+    seats=st.radio('select number of seats',[1,2,3,4])
     
 engine=st.slider('set engine power',500,5000,100)
 
@@ -25,10 +26,18 @@ encd = { "fuel_type": { "Petrol" :1,
 "Automatic" :2 }
       }
         
+def model_pred(fuel_encoded,tt_encoded,seats,engine):
+    with open("car_pred","rb") as file:
+        reg_model=pickle.load(file) 
+        input_features=[[2012,1,120000,fuel_encoded,tt_encoded,19.7,engine,46.3,seats]]
+        return reg_model.predict(input_features)
 
 
 if st.button("Predict"):
-    st.write("buttom pressed")
+    fuel_encoded=encd["fuel_type"][ft]
+    tt_encoded=encd["tt"][tt]
+    price=model_pred(fuel_encoded,tt_encoded,seats,engine)
+    st.text("Predicted price is"+ str(price))
 
 
 
