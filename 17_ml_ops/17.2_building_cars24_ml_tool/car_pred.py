@@ -1,7 +1,6 @@
 import streamlit as st
 import pandas as pd
 import pickle
-pd_c=pd.read_csv(r'C:\Users\28962\Documents\GitHub\DSML\17_ml_ops\17.2_building_cars24_ml_tool\cars24-car-price.csv')
 
 st.header('Cars 24 price predictor')
 
@@ -40,6 +39,4 @@ if st.button("Predict"):
     st.text("Predicted price is"+ str(price))
 
 
-
-st.dataframe(pd_c)
 
