@@ -1,3 +1,5 @@
+# couldnt directly deploy on streamlit through this repo, hence deployed through another repo - https://testmb.streamlit.app/
+
 import streamlit as st
 import pandas as pd
 import pickle
