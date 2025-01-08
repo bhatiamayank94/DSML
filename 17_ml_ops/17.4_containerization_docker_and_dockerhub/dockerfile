@@ -1,0 +1,13 @@
+FROM python:3.12.0b2-slim-buster
+WORKDIR C:\Users\28962\Documents\GitHub\DSML\17_ml_ops\17.4_containerization_docker_and_dockerhub\flask_working
+
+COPY requirement.txt ./
+
+RUN python3 -m pip install --upgrade  pip
+
+RUN pip install -r requirement.txt
+
+COPY . .
+
+CMD ["python","-m","flask","--app","flask_tutorial","run","--host=0.0.0.0"]
+ 
